@@ -1,0 +1,86 @@
+﻿@model AutoService.Models.OrderInfo
+@using AutoService.Models.EF;
+
+@{
+    ViewBag.Title = "OrderDetails";
+}
+<br />
+<br />
+<h3 align="center"> Подробности о заказе</h3>
+<br />
+<br />
+<div>
+    <p>Заказ №@Model.Order.OrderId</p>
+    <table class="table table-bordered">
+        <thead class="table-warning">
+            <tr>
+                <td>Дата</td>
+                <td>Причина</td>
+                <td>Сотрудник</td>
+                <td>Выполненная работа</td>
+                <td>Цена за работу</td>
+                <td>Запчасти</td>
+                <td>Цена за запчасти</td>
+                <td>Гарантия</td>
+                <td>Статус</td>
+            </tr>
+            <tr>
+                <td>@Model.Order.Date</td>
+                <td>@Model.Order.Reason</td>
+                <td>
+                    @if (@Model.Employee != null)
+                    {
+                        <span>@Model.Employee.FIO</span>
+                       
+                    }
+                </td>
+                <td>
+                    @{
+                        foreach (var item in Model.Works)
+                        {
+                            <span>@item.Name </span>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        decimal workPrice = 0;
+
+                        Model.Works.ForEach(w => { workPrice += w.Price; });
+
+                        <span>@workPrice</span>
+                    }
+                </td>
+                <td>
+                    @{
+                        foreach (var item in Model.Spareparts)
+                        {
+                            <span>@item.Name</span>
+                            
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        decimal sparepartsPrice = 0;
+
+                        Model.Spareparts.ForEach(w => { sparepartsPrice += w.Price; });
+
+                        <span>@sparepartsPrice</span>
+                    }
+                </td>
+                <td>
+                    @{
+                        int waranty = 0;
+
+                        Model.Works.FirstOrDefault(w=>Int32.TryParse(w.Gurantee, out waranty));
+
+                        <span>@waranty</span>
+                    }
+                </td>
+                <td>@Model.Order.Status</td>
+            </tr>
+        </thead>
+    </table>
+</div>
+

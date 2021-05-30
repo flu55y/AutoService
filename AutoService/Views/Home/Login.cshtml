@@ -1,0 +1,29 @@
+﻿@using AutoService.Models;
+@model LoginMessage
+
+@{
+    ViewBag.Title = "Вход";
+}
+<div style="margin-top:100px;">
+<h2 class="text-center">Авторизация:</h2>
+
+@if (Model != null)
+{
+    <label class="text-danger">@Model.Message</label>
+}
+
+<div class="center-block my_input">
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <input class="center-block" type="text" name="login" placeholder="Логин" />
+        <input class="center-block" type="password" name="password" placeholder="Пароль" />
+        <input class="center-block btn btn-primary" type="submit" value="Войти" />
+    }
+
+</div>
+</div>
+<style>
+    .my_input input {
+        margin-top: 2%;
+    }
+</style>

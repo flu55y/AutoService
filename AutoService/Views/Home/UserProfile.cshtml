@@ -1,0 +1,67 @@
+﻿@model AutoService.Models.ProfileInfo
+@using AutoService.Models.EF;
+
+@{
+    ViewBag.Title = "Профиль";
+}
+
+
+<body>
+    {
+    background-color: #D4E6B3;
+    }
+</body>
+
+<div style="margin-top: 100px;  padding-left:60px;">
+    <h2>Личный кабинет</h2>
+
+    <div>
+        <h4 style="color: cornflowerblue">
+            <p>ID Пользователя: @Model.Owner.OwnerId</p>
+            <p>Имя пользвателя: @Model.Owner.Login</p>
+        </h4>
+        <dl class="dl-horizontal">
+        </dl>
+
+        <div>
+            <p>Ниже отображены ваши заказы</p>
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <td>Дата</td>
+                        <td>Причина</td>
+                        <td>Статус</td>
+                    </tr>
+                </thead>
+                @{
+                    foreach (var item in Model.Orders)
+                    {
+                        <tr>
+                            <td>@item.Date</td>
+                            <td>@item.Reason</td>
+                            <td>@item.Status</td>
+                            <td><a href="/Home/OrderDetails?orderId=@item.OrderId">Подробности</a></td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+
+        <br />
+        <h3><center>Создание заявки </center></h3>
+
+        <div class="form">
+
+            @{
+                       
+
+                    using (Html.BeginForm("AddOrder", "Home", FormMethod.Post))
+                {
+                    <input  type="text"style="background-color:lightgoldenrodyellow" placeholder ="Что хотите сделать в нашем автосервисе?" name="task" required>
+                    <button class="btn-default">Отправить заявку</button>
+                }
+            }
+        </div>
+
+    </div>
+</div>

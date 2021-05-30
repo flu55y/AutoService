@@ -1,0 +1,36 @@
+﻿@using AutoService.Models;
+@model LoginMessage
+
+@{
+    ViewBag.Title = "Регистрация";
+}
+<div style="margin-top:100px;">
+<h2 class="text-center">Регистрация:</h2>
+
+@if (Model != null)
+{
+    <label class="text-danger">@Model.Message</label>
+}
+
+<div class="center-block my_input form">
+    @using (Html.BeginForm("SignUp", "Home", FormMethod.Post))
+    {
+        <input type="text" style="background-color:lightgoldenrodyellow" placeholder="Логин" name="login" required>
+        <input type="password" style="background-color:lightgoldenrodyellow" placeholder="Пароль" name="password" required>
+        <input type="text" style="background-color:lightgoldenrodyellow" placeholder="ФИО" name="fullName" required>
+        <input type="text" style="background-color:lightgoldenrodyellow" placeholder="Телефон" name="phoneNumber" required>
+        <input type="text"  style="background-color:lightgoldenrodyellow" placeholder="Водительское удостоверение" name="driverLicense" required>
+        <input type="text" style="background-color:lightgoldenrodyellow" placeholder="Марка автомобиля" name="carMark" required>
+        <input type="text" style="background-color:lightgoldenrodyellow" placeholder="Номер автомобиля" name="carNumber" required>
+
+        <button class="btn-default">Зарегистрироваться</button>
+
+        <span class="terms">Вы согласны с Политикой конфиденциальности</span>
+    }
+</div>
+</div>
+<style>
+    .my_input input {
+        margin-top: 1%;
+    }
+</style>

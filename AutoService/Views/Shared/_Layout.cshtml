@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="padding-left:30px;">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("ТехноВятка", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+                    <li><a href="/Home/Index#about">О нас</a></li>
+                    <li><a href="/Home/Index#services">Услуги</a></li>
+                    <li><a href="/home/signup">Зарегистрироваться</a></li>
+                    <ul class="nav navbar-nav navbar-right navbar-collapse collapse" style="padding-left:900px;">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="/User">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @if (Request.Cookies["login"] != null)
+                                {
+                                    <content>@Request.Cookies["login"].Value</content>
+                                }
+                                else
+                                {
+                                    <content>Профиль</content>
+                                }
+
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @if (Request.Cookies["login"] != null)
+                                {
+                                    <li> <a class="dropdown-item" href="/home/userprofile">Профиль</a></li>
+                                   <li><a class="dropdown-item" href="/home/logout">Выйти</a></li> 
+                                 }
+                                 else
+                                 {
+                                    <li><a class="dropdown-item" href="/home/login">Авторизоваться</a></li>
+                                    <li><a class="dropdown-item" href="/home/signup">Зарегистрироваться</a></li>
+                                 }
+                            </ul>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
